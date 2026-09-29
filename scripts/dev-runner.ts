@@ -1,5 +1,5 @@
 #!/usr/bin/env -S node --import tsx
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -558,6 +558,66 @@ async function getNativeRunnerRequired(): Promise<boolean> {
   return requirement.nativeRunnerRequired;
 }
 
+function cargoInPath(): boolean {
+  const result = spawnSync("cargo", ["--version"], { stdio: "ignore", shell: process.platform === "win32" });
+  return result.status === 0;
+}
+
+async function ensureCargoInstalled(): Promise<void> {
+  // Also check ~/.cargo/bin in case rustup installed it but the shell env wasn't reloaded.
+  const cargoBin = path.join(process.env.HOME ?? "", ".cargo", "bin", "cargo");
+  if (cargoInPath() || existsSync(cargoBin)) {
+    if (!cargoInPath()) {
+      // Found in ~/.cargo/bin but not in PATH — prepend it for this process.
+      process.env.PATH = `${path.dirname(cargoBin)}${path.delimiter}${process.env.PATH}`;
+    }
+    return;
+  }
+
+  if (process.platform === "win32") {
+    console.error(
+      "[paperclip] cargo (Rust) is required to build the native runner binary but was not found.\n" +
+      "[paperclip] Install Rust from https://rustup.rs and re-run pnpm dev.",
+    );
+    process.exit(1);
+  }
+
+  const rl = createInterface({ input: stdin, output: stdout });
+  let answer: string;
+  try {
+    answer = await rl.question(
+      "[paperclip] cargo (Rust) is required to build the native runner binary but was not found.\n" +
+      "[paperclip] Install Rust via rustup now? [Y/n] ",
+    );
+  } finally {
+    rl.close();
+  }
+
+  if (answer.trim().toLowerCase() === "n") {
+    console.error(
+      "[paperclip] Rust is required. Install it manually with:\n" +
+      "  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\n" +
+      "Then open a new terminal and re-run pnpm dev.",
+    );
+    process.exit(1);
+  }
+
+  console.log("[paperclip] installing Rust via rustup...");
+  const rustupResult = spawnSync(
+    "sh",
+    ["-c", "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path"],
+    { stdio: "inherit" },
+  );
+  if (rustupResult.status !== 0) {
+    console.error("[paperclip] rustup installation failed. Install Rust manually from https://rustup.rs");
+    process.exit(rustupResult.status ?? 1);
+  }
+
+  // Prepend ~/.cargo/bin for the remainder of this process.
+  process.env.PATH = `${path.dirname(cargoBin)}${path.delimiter}${process.env.PATH}`;
+  console.log("[paperclip] Rust installed successfully.");
+}
+
 async function buildPaperclipRunner() {
   console.log("[paperclip] building paperclip runner...");
   const typescriptResult = await runPnpm(
@@ -582,6 +642,8 @@ async function buildPaperclipRunner() {
   ) {
     return;
   }
+
+  await ensureCargoInstalled();
 
   console.log("[paperclip] building paperclip runner native binary...");
   const binaryResult = await runPnpm(
