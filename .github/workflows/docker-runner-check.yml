@@ -54,7 +54,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4
       # Compile the real target, then change source in a disposable context.
       # A fresh builder must import dependencies and produce changed binary metadata.
       # The baseline build anonymously seeds from the public BuildKit cache at
@@ -140,7 +140,7 @@ jobs:
           mkdir -p remote-verification
           sha256sum pnpm-lock.yaml > remote-verification/lock.sha256
           git rev-parse HEAD > remote-verification/source.txt
-      - uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4
       - if: inputs.publish_eval_image
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
         with:
