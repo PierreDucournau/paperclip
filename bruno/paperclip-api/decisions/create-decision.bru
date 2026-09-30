@@ -1,0 +1,18 @@
+meta {
+  name: Create Decision
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/companies/{{companyId}}/decisions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "question": "Should we proceed?",
+    "options": ["yes", "no"]
+  }
+}

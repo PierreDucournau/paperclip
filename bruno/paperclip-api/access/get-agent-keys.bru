@@ -1,0 +1,11 @@
+meta {
+  name: Get Agent API Keys
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/agents/{{agentId}}/keys
+  body: none
+  auth: none
+}

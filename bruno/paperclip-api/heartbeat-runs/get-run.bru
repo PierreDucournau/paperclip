@@ -1,0 +1,11 @@
+meta {
+  name: Get Heartbeat Run
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/heartbeat-runs/{{runId}}
+  body: none
+  auth: none
+}

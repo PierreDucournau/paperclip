@@ -1,0 +1,19 @@
+meta {
+  name: Create Routine
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/companies/{{companyId}}/routines
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "My Routine",
+    "agentId": "{{agentId}}",
+    "description": ""
+  }
+}

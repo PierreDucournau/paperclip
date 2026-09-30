@@ -50,9 +50,11 @@ export function agentAvatarRoutes(injected?: ReturnType<typeof createAgentAvatar
         res.status(304).end(); return;
       }
       res.setHeader("Content-Length", byteSize);
+      if (res.destroyed) { stream.destroy(); return; }
       await pipeline(stream, res);
     } catch (error) {
-      if (!(error instanceof AvatarAdmissionError)) logger.warn({ err: error }, "Could not render agent avatar");
+      const isClientDisconnect = (error as NodeJS.ErrnoException)?.code === "ERR_STREAM_UNABLE_TO_PIPE" || (error as NodeJS.ErrnoException)?.code === "ERR_STREAM_DESTROYED";
+      if (!isClientDisconnect && !(error instanceof AvatarAdmissionError)) logger.warn({ err: error }, "Could not render agent avatar");
       if (res.headersSent || res.destroyed) { res.destroy(); return; }
       res.removeHeader("Content-Length");
       res.removeHeader("ETag");

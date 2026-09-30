@@ -1,0 +1,17 @@
+meta {
+  name: Update Routine
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/routines/{{routineId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Updated Routine"
+  }
+}

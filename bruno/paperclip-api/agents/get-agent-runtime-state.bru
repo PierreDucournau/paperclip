@@ -1,0 +1,11 @@
+meta {
+  name: Get Agent Runtime State
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/agents/{{agentId}}/runtime-state
+  body: none
+  auth: none
+}

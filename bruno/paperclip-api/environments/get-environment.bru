@@ -1,0 +1,11 @@
+meta {
+  name: Get Environment
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/environments/{{environmentId}}
+  body: none
+  auth: none
+}

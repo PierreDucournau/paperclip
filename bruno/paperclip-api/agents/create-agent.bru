@@ -1,0 +1,18 @@
+meta {
+  name: Create Agent
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/companies/{{companyId}}/agents
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "My Agent",
+    "adapterType": "claude"
+  }
+}

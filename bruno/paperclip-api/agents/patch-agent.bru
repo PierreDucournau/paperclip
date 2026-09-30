@@ -1,0 +1,17 @@
+meta {
+  name: Update Agent
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/agents/{{agentId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Updated Agent Name"
+  }
+}

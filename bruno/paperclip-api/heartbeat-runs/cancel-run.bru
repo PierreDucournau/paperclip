@@ -1,0 +1,11 @@
+meta {
+  name: Cancel Run
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/heartbeat-runs/{{runId}}/cancel
+  body: none
+  auth: none
+}

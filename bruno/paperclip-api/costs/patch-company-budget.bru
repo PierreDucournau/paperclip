@@ -1,0 +1,17 @@
+meta {
+  name: Update Company Budget
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/companies/{{companyId}}/budgets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "monthlyLimitUsd": 100
+  }
+}

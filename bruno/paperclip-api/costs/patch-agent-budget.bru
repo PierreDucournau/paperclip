@@ -1,0 +1,17 @@
+meta {
+  name: Update Agent Budget
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/agents/{{agentId}}/budgets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "monthlyLimitUsd": 10
+  }
+}

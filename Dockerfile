@@ -49,6 +49,10 @@ COPY packages/plugins/plugin-workspace-diff/package.json packages/plugins/plugin
 COPY patches/ patches/
 COPY scripts/link-plugin-dev-sdk.mjs scripts/
 
+# Cap Node heap during install to avoid OOM when building under QEMU emulation
+# (multi-platform builds run two install processes in parallel; without a cap
+# the combined footprint triggers the OOM killer before install completes).
+ENV NODE_OPTIONS=--max-old-space-size=1536
 RUN pnpm install --frozen-lockfile
 
 FROM base AS rust-toolchain

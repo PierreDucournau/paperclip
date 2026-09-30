@@ -1,0 +1,17 @@
+meta {
+  name: List Issues
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/companies/{{companyId}}/issues
+  body: none
+  auth: none
+}
+
+params:query {
+  ~status: open
+  ~assigneeAgentId:
+  ~projectId:
+}

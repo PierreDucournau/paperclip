@@ -1,0 +1,11 @@
+meta {
+  name: Get Pipeline
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/pipelines/{{pipelineId}}
+  body: none
+  auth: none
+}

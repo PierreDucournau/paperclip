@@ -1,0 +1,15 @@
+meta {
+  name: Search Issues
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/companies/{{companyId}}/search
+  body: none
+  auth: none
+}
+
+params:query {
+  q:
+}

@@ -1,0 +1,26 @@
+meta {
+  name: Update Member Role and Grants (human only)
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/companies/{{companyId}}/members/{{memberId}}/role-and-grants
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "membershipRole": "operator",
+    "grants": [
+      { "permissionKey": "tasks:assign" }
+    ]
+  }
+}
+
+docs {
+  membershipRole: one of "owner" | "admin" | "operator" | "viewer" (human members only)
+  grants permissionKey options: tasks:assign, agents:suggest-changes, tasks:assign_scope, ...
+  Note: for agent members use PATCH /agents/:id/permissions instead
+}

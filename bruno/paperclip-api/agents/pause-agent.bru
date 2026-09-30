@@ -1,0 +1,11 @@
+meta {
+  name: Pause Agent
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/agents/{{agentId}}/pause
+  body: none
+  auth: none
+}

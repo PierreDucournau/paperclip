@@ -1,0 +1,11 @@
+meta {
+  name: Probe Environment
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/environments/{{environmentId}}/probe
+  body: none
+  auth: none
+}

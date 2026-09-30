@@ -1,0 +1,17 @@
+meta {
+  name: Create Pipeline
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/companies/{{companyId}}/pipelines
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "My Pipeline"
+  }
+}

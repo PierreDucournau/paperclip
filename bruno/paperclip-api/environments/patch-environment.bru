@@ -1,0 +1,17 @@
+meta {
+  name: Update Environment
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/environments/{{environmentId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Updated Environment"
+  }
+}

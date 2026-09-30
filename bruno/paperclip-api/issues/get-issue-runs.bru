@@ -1,0 +1,11 @@
+meta {
+  name: Get Issue Runs
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/issues/{{issueId}}/runs
+  body: none
+  auth: none
+}

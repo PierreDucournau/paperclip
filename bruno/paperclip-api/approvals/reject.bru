@@ -1,0 +1,17 @@
+meta {
+  name: Reject
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/approvals/{{approvalId}}/reject
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "comment": ""
+  }
+}

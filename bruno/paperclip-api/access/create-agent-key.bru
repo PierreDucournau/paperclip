@@ -1,0 +1,17 @@
+meta {
+  name: Create Agent API Key
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/agents/{{agentId}}/keys
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "label": "My API Key"
+  }
+}

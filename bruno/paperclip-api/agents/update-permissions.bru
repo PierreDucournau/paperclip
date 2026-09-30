@@ -1,0 +1,20 @@
+meta {
+  name: Update Agent Permissions
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/agents/{{agentId}}/permissions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "canCreateAgents": false,
+    "canAssignTasks": true,
+    "canCreateSkills": false,
+    "trustPreset": "standard"
+  }
+}

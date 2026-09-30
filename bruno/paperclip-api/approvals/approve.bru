@@ -1,0 +1,17 @@
+meta {
+  name: Approve
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/approvals/{{approvalId}}/approve
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "comment": ""
+  }
+}

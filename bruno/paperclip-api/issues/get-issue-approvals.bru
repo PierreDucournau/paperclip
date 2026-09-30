@@ -1,0 +1,11 @@
+meta {
+  name: Get Issue Approvals
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/issues/{{issueId}}/approvals
+  body: none
+  auth: none
+}

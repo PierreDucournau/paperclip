@@ -1,0 +1,11 @@
+meta {
+  name: Get Agent Configuration
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/agents/{{agentId}}/configuration
+  body: none
+  auth: none
+}

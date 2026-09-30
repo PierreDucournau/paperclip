@@ -1,0 +1,18 @@
+meta {
+  name: Create Goal
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/companies/{{companyId}}/goals
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "My Goal",
+    "description": ""
+  }
+}

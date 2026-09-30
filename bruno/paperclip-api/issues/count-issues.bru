@@ -1,0 +1,11 @@
+meta {
+  name: Count Issues
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/companies/{{companyId}}/issues/count
+  body: none
+  auth: none
+}

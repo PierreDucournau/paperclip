@@ -1,0 +1,11 @@
+meta {
+  name: Delete Environment
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/environments/{{environmentId}}
+  body: none
+  auth: none
+}

@@ -1,0 +1,17 @@
+meta {
+  name: Update Goal
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{baseUrl}}/goals/{{goalId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Updated Goal"
+  }
+}
